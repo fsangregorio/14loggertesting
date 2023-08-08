@@ -1,0 +1,115 @@
+
+paths:
+  /api/products/:
+    get:
+      summary: Get all products
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: number
+        - in: query
+          name: limit
+          schema:
+            type: number
+        - in: query
+          name: sort
+          schema:
+            type: string
+          description: \'asc\' , \'desc\' 
+      responses:
+        "200":
+          description: Products got successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        "500":
+          description: Error
+          
+  /api/products/{productId}:
+    get:
+        summary: Get product
+        parameters:
+          - name: productId
+            in: path
+            required: true
+            schema:
+              type: string
+        responses:
+          "200":
+            description: Product got successfully.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Product'
+
+    post:
+      summary: Create a product
+      parameters:
+          - name: productId
+            in: path
+            required: true
+            schema:
+              type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+          "200":
+            description: Product created successfully.
+            content:
+             application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          "400":
+            description: Error
+          "404":
+            description: Product Not found 
+
+    put:
+      summary: Update product
+      parameters:
+          - name: productId
+            in: path
+            required: true
+            schema:
+              type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+          "200":
+            description: Product updated successfully
+            content:
+             application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          "400":
+            description: Error
+          "404":
+            description: Product not found
+            
+    delete:
+      summary: Delete product
+      parameters:
+          - name: productId
+            in: path
+            required: true
+            schema:
+              type: string
+      responses:
+          "200":
+            description: Product deleted successfully.
+          "400":
+            description: Error
+          "404":
+            description: Product not found
